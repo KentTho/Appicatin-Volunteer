@@ -1,0 +1,42 @@
+@import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap nếu cần
+@import "ngx-toastr/toastr";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* --- General reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background: #f8f9fa;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* --- Button styles --- */
+button,
+.btn {
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: #ff6b6b;
+  color: white;
+  &:hover {
+    background: darken(#ff6b6b, 10%);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Form, Card, Animation, Avatar, Toastr... */

@@ -1,0 +1,182 @@
+<div class="user-form-container">
+  <h2>Chỉnh sửa thông tin cá nhân</h2>
+
+  <!-- 🟢 Popup Thông báo -->
+  <div class="popup-container">
+    <p class="popup-message success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </p>
+    <p class="popup-message error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </p>
+  </div>
+
+  <!-- 🔵 Bước 1 -->
+  <form *ngIf="step === 1">
+    <div class="input-group">
+      <label for="name">Họ và Tên</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="user.name"
+        name="name"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.name">{{ fieldErrors.name }}</p>
+    </div>
+
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="user.email"
+        name="email"
+        readonly
+      />
+      <p class="error-text" *ngIf="fieldErrors.email">
+        {{ fieldErrors.email }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="role">Vai trò</label>
+      <input
+        type="text"
+        id="role"
+        [value]="getRoleLabel(user.role)"
+        name="role"
+        readonly
+      />
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="nextStep()">
+      Tiếp tục
+    </button>
+  </form>
+
+  <!-- 🔵 Bước 2 -->
+  <form *ngIf="step === 2">
+    <div class="input-group">
+      <label for="phone">Số điện thoại</label>
+      <input
+        type="text"
+        id="phone"
+        [(ngModel)]="user.phone"
+        name="phone"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.phone">
+        {{ fieldErrors.phone }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="address">Địa chỉ</label>
+      <input
+        type="text"
+        id="address"
+        [(ngModel)]="user.address"
+        name="address"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.address">
+        {{ fieldErrors.address }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="location">Vị trí</label>
+      <input
+        type="text"
+        id="location"
+        [(ngModel)]="user.location"
+        name="location"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.location">
+        {{ fieldErrors.location }}
+      </p>
+    </div>
+
+    <div class="button-group">
+      <button type="button" class="btn btn-secondary" (click)="prevStep()">
+        🔙 Quay lại
+      </button>
+      <button type="button" class="btn btn-primary" (click)="nextStep()">
+        Tiếp tục
+      </button>
+    </div>
+  </form>
+
+  <!-- 🔵 Bước 3 -->
+  <form *ngIf="step === 3" (submit)="updateUser()">
+    <div class="input-group">
+      <label for="preferences">Sở thích</label>
+      <input
+        type="text"
+        id="preferences"
+        [(ngModel)]="user.preferences"
+        name="preferences"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.preferences">
+        {{ fieldErrors.preferences }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="languages">Ngôn ngữ</label>
+      <input
+        type="text"
+        id="languages"
+        [(ngModel)]="user.languages"
+        name="languages"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.languages">
+        {{ fieldErrors.languages }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="skills">Kỹ năng</label>
+      <input
+        type="text"
+        id="skills"
+        [(ngModel)]="user.skills"
+        name="skills"
+        required
+      />
+      <p class="error-text" *ngIf="fieldErrors.skills">
+        {{ fieldErrors.skills }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="experience">Kinh nghiệm</label>
+      <textarea
+        id="experience"
+        [(ngModel)]="user.experience"
+        name="experience"
+        required
+      ></textarea>
+      <p class="error-text" *ngIf="fieldErrors.experience">
+        {{ fieldErrors.experience }}
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="bio">Giới thiệu bản thân</label>
+      <textarea id="bio" [(ngModel)]="user.bio" name="bio" required></textarea>
+      <p class="error-text" *ngIf="fieldErrors.bio">{{ fieldErrors.bio }}</p>
+    </div>
+
+    <div class="button-group">
+      <button type="button" class="btn btn-secondary" (click)="prevStep()">
+        🔙 Quay lại
+      </button>
+      <button type="submit" class="btn btn-primary">💾 Cập nhật</button>
+    </div>
+  </form>
+</div>

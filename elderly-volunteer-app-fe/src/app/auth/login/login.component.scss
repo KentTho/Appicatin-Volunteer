@@ -1,0 +1,265 @@
+/* Biến màu sắc */
+$primary-color: #81c784; // Xanh lá dịu
+$secondary-color: #f4a261; // Cam đào ấm áp
+$accent-color: #e9ecef; // Xám nhạt tinh tế
+$shadow-color: rgba(0, 0, 0, 0.15);
+
+/* Container tổng */
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url("https://i.pinimg.com/736x/dd/c4/c5/ddc4c5687bb60450d1e4e9b0c7c17b0b.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &.fade-in {
+    animation: fadeIn 1.2s ease-in-out;
+  }
+}
+
+/* Lớp phủ làm mờ nền */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba($primary-color, 0.2)
+  );
+  z-index: 1;
+}
+
+/* Card form chính */
+.login-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px 40px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px $shadow-color;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba($primary-color, 0.2);
+  animation: cardRise 0.8s ease-out;
+
+  h2 {
+    margin-bottom: 35px;
+    color: darken($primary-color, 20%);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid lighten($primary-color, 20%);
+      border-radius: 15px;
+      font-size: 17px;
+      background: $accent-color;
+      transition: all 0.4s ease;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 15px rgba($primary-color, 0.4);
+        background: white;
+        outline: none;
+      }
+
+      &::placeholder {
+        color: #888;
+        font-style: italic;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(
+        135deg,
+        $primary-color,
+        darken($primary-color, 10%)
+      );
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+
+      &:hover {
+        background: linear-gradient(
+          135deg,
+          darken($primary-color, 5%),
+          darken($primary-color, 20%)
+        );
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba($primary-color, 0.4);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  .error-message {
+    color: #d32f2f;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    background: rgba(#d32f2f, 0.1);
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  p {
+    margin-top: 25px;
+    color: #666;
+    font-size: 16px;
+
+    a {
+      color: $secondary-color;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: darken($secondary-color, 15%);
+      }
+    }
+  }
+}
+
+.forgot-password {
+  margin-top: 15px;
+
+  a {
+    color: $secondary-color;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: darken($secondary-color, 20%);
+      text-decoration: underline;
+      transform: scale(1.05);
+    }
+
+    &::before {
+      content: "🔑";
+      position: absolute;
+      left: -25px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    &:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Hiệu ứng mượt mà */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ảnh bay hiệu ứng */
+.floating-image {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  opacity: 1;
+  filter: drop-shadow(0 6px 12px $shadow-color);
+  animation: floatUpDown 7s infinite ease-in-out;
+  z-index: 2;
+  border-radius: 15px;
+
+  &:nth-child(3) {
+    animation-delay: 1s;
+  }
+  &:nth-child(4) {
+    animation-delay: 2s;
+  }
+  &:nth-child(5) {
+    animation-delay: 3s;
+  }
+}
+
+/* Hiệu ứng bay */
+@keyframes floatUpDown {
+  0%,
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-35px) rotate(-2deg);
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 35px 25px;
+    max-width: 380px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  input {
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .floating-image {
+    width: 120px;
+  }
+}

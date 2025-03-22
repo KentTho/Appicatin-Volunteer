@@ -1,0 +1,126 @@
+// Biến màu sắc
+$primary-color: #4caf50; // Xanh lá - biểu tượng sự hỗ trợ và thiện nguyện
+$secondary-color: #ff9800; // Cam - ấm áp, thân thiện
+$background-color: #f4f7f6; // Nền sáng nhẹ
+$text-color: #333; // Màu chữ tối nhẹ
+$hover-color: #e8f5e9; // Màu nền khi hover
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: $background-color;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  font-family: "Arial", sans-serif;
+
+  h2 {
+    color: $primary-color;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+
+    // Hiệu ứng gạch chân nhẹ khi load
+    &::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 2px;
+      background-color: $secondary-color;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 15px;
+
+      a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        color: $text-color;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+
+        i {
+          margin-right: 10px;
+          color: $primary-color;
+          font-size: 18px;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          background-color: $hover-color;
+          color: $primary-color;
+          transform: translateX(5px); // Dịch nhẹ sang phải khi hover
+
+          i {
+            color: $secondary-color;
+            transform: scale(1.2); // Phóng to icon khi hover
+          }
+        }
+
+        // Hiệu ứng active (giả sử khi nhấp vào)
+        &.active {
+          background-color: $primary-color;
+          color: white;
+
+          i {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  // Hiệu ứng khi cuộn sidebar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary-color;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $background-color;
+  }
+}
+
+// Responsive cho thiết bị nhỏ
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 15px;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    ul {
+      li {
+        a {
+          font-size: 14px;
+          padding: 10px 12px;
+
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

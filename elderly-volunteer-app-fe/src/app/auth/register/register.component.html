@@ -1,0 +1,91 @@
+<div class="register-container fade-in">
+  <div class="overlay"></div>
+  <div class="register-card">
+    <h2>Đăng Ký</h2>
+    <form (submit)="register(); $event.preventDefault()">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input
+          type="text"
+          placeholder="Họ và tên"
+          [(ngModel)]="name"
+          name="name"
+        />
+      </div>
+      <p class="error-msg" *ngIf="errors.name">{{ errors.name }}</p>
+
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="email"
+        />
+      </div>
+      <p class="error-msg" *ngIf="errors.email">{{ errors.email }}</p>
+
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input
+          type="password"
+          placeholder="Mật khẩu"
+          [(ngModel)]="password"
+          name="password"
+        />
+      </div>
+      <p class="error-msg" *ngIf="errors.password">{{ errors.password }}</p>
+
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input
+          type="password"
+          placeholder="Xác nhận mật khẩu"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+        />
+      </div>
+      <p class="error-msg" *ngIf="errors.confirmPassword">
+        {{ errors.confirmPassword }}
+      </p>
+
+      <div class="input-group">
+        <i class="fas fa-user-tag"></i>
+        <select [(ngModel)]="role" name="role">
+          <option value="" disabled selected>Chọn vai trò</option>
+          <option value="elderly">Người cao tuổi</option>
+          <option value="volunteer">Tình nguyện viên</option>
+        </select>
+      </div>
+      <p class="error-msg" *ngIf="errors.role">{{ errors.role }}</p>
+
+      <button type="submit" class="btn-submit">Đăng Ký</button>
+    </form>
+
+    <p class="login-link">
+      Đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a>
+    </p>
+  </div>
+
+  <!-- Ảnh bay xung quanh -->
+  <img
+    src="https://i.pinimg.com/736x/bb/24/f9/bb24f967bf0893fb0426dfa4778ed6b7.jpg"
+    class="floating-image"
+    style="top: 10%; left: 5%"
+  />
+  <img
+    src="https://i.pinimg.com/736x/a8/a5/60/a8a560817818306d3e43f4e63f610885.jpg"
+    class="floating-image"
+    style="top: 20%; right: 8%"
+  />
+  <img
+    src="https://i.pinimg.com/736x/f0/c7/94/f0c794d62e665bdd45034aa1774118df.jpg"
+    class="floating-image"
+    style="bottom: 15%; left: 12%"
+  />
+  <img
+    src="https://i.pinimg.com/736x/70/75/b6/7075b6ce1a13f9efe7353ffd3cfedffc.jpg"
+    class="floating-image"
+    style="bottom: 8%; right: 10%"
+  />
+</div>

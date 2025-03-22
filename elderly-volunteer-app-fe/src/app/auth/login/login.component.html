@@ -1,0 +1,60 @@
+<div class="login-container fade-in">
+  <div class="overlay"></div>
+  <div class="login-card">
+    <h2>Đăng nhập</h2>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <form (submit)="login(); $event.preventDefault()">
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Mật khẩu"
+        required
+      />
+      <button type="submit">Đăng nhập</button>
+    </form>
+
+    <div class="login-links">
+      <p>
+        Bạn chưa có tài khoản?
+        <a routerLink="/register" class="register-link">Đăng ký</a>
+      </p>
+      <p class="forgot-password">
+        Bạn quên mật khẩu?
+        <a routerLink="/forgot-password" class="forgot-password-link">
+          Quên mật khẩu?
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Ảnh bay -->
+  <img
+    src="https://i.pinimg.com/736x/01/48/5b/01485b3ad3916076ac24b1d463803e7b.jpg"
+    class="floating-image"
+    style="top: 10%; left: 5%"
+  />
+  <img
+    src="https://i.pinimg.com/736x/8f/4b/f6/8f4bf666f2506e67efb7f74112a6d005.jpg"
+    class="floating-image"
+    style="top: 20%; right: 8%"
+  />
+  <img
+    src="https://i.pinimg.com/736x/1e/eb/7e/1eeb7e6ae37d0f89f4c31e5cdca1a433.jpg"
+    class="floating-image"
+    style="bottom: 15%; left: 12%"
+  />
+  <img
+    src="https://i.pinimg.com/736x/dd/25/98/dd2598e385f6da4f6a6e55e8e6760976.jpg"
+    class="floating-image"
+    style="bottom: 8%; right: 10%"
+  />
+</div>

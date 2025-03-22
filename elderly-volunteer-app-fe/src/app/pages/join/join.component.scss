@@ -1,0 +1,192 @@
+// Biến màu sắc
+$primary-color: #4caf50; // Xanh lá - biểu tượng thiện nguyện
+$secondary-color: #ff9800; // Cam - ấm áp, gần gũi
+$background-color: #f4f7f6; // Nền sáng nhẹ
+$text-color: #333; // Màu chữ tối
+$highlight-color: #e8f5e9; // Màu nổi bật nhẹ
+$shadow-color: rgba(0, 0, 0, 0.15);
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Container chính
+.join-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    $background-color,
+    lighten($primary-color, 45%)
+  ); // Gradient nền nhẹ nhàng
+  position: relative;
+  overflow: hidden;
+
+  // Hiệu ứng nền động (nếu muốn thêm điểm nhấn)
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba($primary-color, 0.1) 10%,
+      transparent 70%
+    );
+    animation: rotateBackground 20s linear infinite;
+    z-index: 0;
+  }
+
+  // Sidebar
+  app-sidebar {
+    flex: 0 0 260px; // Chiều rộng cố định cho sidebar
+    background: white;
+    box-shadow: 0 6px 20px rgba($shadow-color, 0.1);
+    padding: 25px;
+    animation: slideInLeft 0.8s ease-in;
+    z-index: 1;
+    border-right: 2px solid rgba($primary-color, 0.15);
+  }
+
+  // Content
+  .content {
+    flex: 1;
+    padding: 60px 30px;
+    max-width: 1000px; // Giới hạn chiều rộng tối đa
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+
+    h2 {
+      font-size: 34px;
+      font-family: "Roboto", sans-serif;
+      font-weight: 700;
+      color: $text-color;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      animation: fadeInUp 0.8s ease-in;
+      background: linear-gradient(90deg, $primary-color, $secondary-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; // Gradient cho tiêu đề
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 4px;
+        background: linear-gradient(90deg, $primary-color, $secondary-color);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+      }
+
+      &:hover::after {
+        width: 100px; // Gạch chân dài hơn khi hover
+      }
+    }
+
+    app-user-form {
+      display: block;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 6px 25px rgba($shadow-color, 0.15);
+      animation: fadeInUp 1s ease-in;
+      border: 1px solid rgba($primary-color, 0.2);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba($primary-color, 0.25);
+        border-color: $primary-color;
+      }
+    }
+  }
+}
+
+// Animation cho nền động (tùy chọn)
+@keyframes rotateBackground {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .join-container {
+    flex-direction: column;
+
+    &::before {
+      display: none; // Tắt hiệu ứng nền động trên mobile để nhẹ hơn
+    }
+
+    app-sidebar {
+      flex: none;
+      width: 100%;
+      border-right: none;
+      border-bottom: 2px solid rgba($primary-color, 0.15);
+      padding: 20px;
+    }
+
+    .content {
+      padding: 30px 15px;
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+
+        &::after {
+          width: 50px;
+        }
+
+        &:hover::after {
+          width: 70px;
+        }
+      }
+
+      app-user-form {
+        padding: 25px;
+        border-radius: 15px;
+      }
+    }
+  }
+}

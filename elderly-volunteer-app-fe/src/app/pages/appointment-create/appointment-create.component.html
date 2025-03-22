@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="appointment-create-container">
+    <h2>📅 Đặt lịch hẹn mới</h2>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <form (submit)="createAppointment()">
+      <!-- Chọn tình nguyện viên -->
+      <div class="input-group">
+        <label for="volunteer">🔍 Chọn tình nguyện viên:</label>
+        <select
+          id="volunteer"
+          [(ngModel)]="selectedVolunteer"
+          name="volunteer"
+          required
+        >
+          <option value="" disabled selected>
+            -- Chọn tình nguyện viên --
+          </option>
+          <option *ngFor="let volunteer of volunteers" [value]="volunteer._id">
+            {{ volunteer.name }} - {{ volunteer.email }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Chọn ngày hẹn -->
+      <div class="input-group">
+        <label for="date">📅 Chọn ngày hẹn:</label>
+        <input
+          type="datetime-local"
+          id="date"
+          [(ngModel)]="date"
+          name="date"
+          required
+        />
+      </div>
+
+      <!-- Ghi chú -->
+      <div class="input-group">
+        <label for="notes">📝 Ghi chú:</label>
+        <textarea id="notes" [(ngModel)]="notes" name="notes"></textarea>
+      </div>
+
+      <!-- Nút Submit -->
+      <button type="submit" class="btn-submit">✅ Đặt lịch hẹn</button>
+      <button type="button" class="btn-back" (click)="goHome()">
+        🏠 Quay lại
+      </button>
+    </form>
+  </div>
+</div>

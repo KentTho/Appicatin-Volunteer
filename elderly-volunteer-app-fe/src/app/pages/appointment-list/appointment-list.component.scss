@@ -1,0 +1,441 @@
+// Biến màu sắc
+$primary-color: #4caf50; // Xanh lá - thiện nguyện
+$secondary-color: #ff9800; // Cam - ấm áp
+$background-color: #f5f6f5; // Nền xám nhạt dịu mắt
+$text-color: #2d3748; // Xám đậm nhẹ nhàng
+$card-bg: #ffffff; // Nền thẻ trắng tinh tế
+$highlight-color: #e6ffed; // Xanh nhạt nổi bật
+$error-color: #e53e3e; // Đỏ nhẹ - lỗi
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Container chính
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: $background-color;
+  font-family: "Roboto", sans-serif;
+}
+
+// Sidebar
+.sidebar {
+  width: 260px;
+  background: $card-bg;
+  box-shadow: 4px 0 20px $shadow-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 25px;
+  z-index: 10;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 4px 0 25px rgba($primary-color, 0.15);
+  }
+
+  app-sidebar {
+    display: block;
+    height: 100%;
+  }
+}
+
+// Appointment list container
+.appointment-list-container {
+  flex: 1;
+  max-width: calc(100% - 260px);
+  margin-left: 260px;
+  padding: 40px;
+  overflow-y: auto;
+
+  h2 {
+    font-size: 32px;
+    color: $primary-color;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+    animation: fadeInUp 0.6s ease-out;
+    text-shadow: 0 1px 3px rgba($primary-color, 0.2);
+  }
+
+  .error {
+    color: $error-color;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 12px;
+    background: lighten($error-color, 45%);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px $shadow-color;
+    animation: slideInLeft 0.5s ease-out;
+  }
+
+  .empty-state {
+    font-size: 18px;
+    color: $text-color;
+    text-align: center;
+    padding: 25px;
+    background: $highlight-color;
+    border-radius: 12px;
+    margin: 25px 0;
+    box-shadow: 0 3px 10px $shadow-color;
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  // Bộ lọc ngày
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    background: $card-bg;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px $shadow-color;
+    animation: fadeInUp 0.5s ease-out;
+
+    label {
+      font-size: 16px;
+      color: $text-color;
+      font-weight: 500;
+    }
+
+    input[type="date"] {
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 2px solid lighten($text-color, 40%);
+      border-radius: 8px;
+      background: white;
+      color: $text-color;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: $primary-color;
+      }
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 8px rgba($primary-color, 0.3);
+        outline: none;
+      }
+    }
+  }
+}
+
+// Appointment card
+.appointment-card {
+  background: $card-bg;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 15px $shadow-color;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease-out;
+  border-left: 5px solid $primary-color;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba($primary-color, 0.15);
+    border-left-color: $secondary-color;
+  }
+
+  p {
+    margin: 12px 0;
+    font-size: 16px;
+    color: $text-color;
+    line-height: 1.6;
+
+    strong {
+      color: darken($text-color, 15%);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    span {
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 14px;
+      display: inline-block;
+
+      &.pending {
+        background: lighten($secondary-color, 40%);
+        color: $secondary-color;
+      }
+
+      &.confirmed {
+        background: $highlight-color;
+        color: $primary-color;
+      }
+
+      &.completed {
+        background: lighten(#3182ce, 40%);
+        color: #3182ce; // Xanh dương nhạt
+      }
+
+      &.canceled {
+        background: lighten($error-color, 45%);
+        color: $error-color;
+      }
+    }
+  }
+
+  .btn-complete {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: $primary-color;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    box-shadow: 0 3px 10px rgba($primary-color, 0.2);
+
+    &:hover {
+      background: darken($primary-color, 10%);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba($primary-color, 0.4);
+      animation: pulse 0.5s infinite;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  // Phần đánh giá
+  > div {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+    animation: fadeInUp 0.5s ease-out;
+
+    label {
+      font-size: 16px;
+      color: $text-color;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 8px;
+      font-size: 15px;
+      border: 2px solid lighten($text-color, 40%);
+      border-radius: 8px;
+      text-align: center;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: $secondary-color;
+      }
+
+      &:focus {
+        border-color: $secondary-color;
+        box-shadow: 0 0 8px rgba($secondary-color, 0.3);
+        outline: none;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 2px solid lighten($text-color, 40%);
+      border-radius: 8px;
+      min-height: 90px;
+      resize: vertical;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: $secondary-color;
+      }
+
+      &:focus {
+        border-color: $secondary-color;
+        box-shadow: 0 0 8px rgba($secondary-color, 0.3);
+        outline: none;
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      background: $secondary-color;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba($secondary-color, 0.2);
+
+      &:hover {
+        background: darken($secondary-color, 10%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba($secondary-color, 0.4);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+
+// Nút quay lại
+.btn-back {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(
+    135deg,
+    $secondary-color,
+    lighten($secondary-color, 10%)
+  );
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px $shadow-color;
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      darken($secondary-color, 5%),
+      $secondary-color
+    );
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba($secondary-color, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    box-shadow: 0 4px 12px $shadow-color;
+    padding: 15px;
+  }
+
+  .appointment-list-container {
+    max-width: 100%;
+    margin-left: 0;
+    padding: 20px;
+
+    h2 {
+      font-size: 26px;
+    }
+
+    .filter {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      input[type="date"] {
+        width: 100%;
+        padding: 8px 10px;
+      }
+    }
+
+    .appointment-card {
+      padding: 20px;
+
+      p {
+        font-size: 14px;
+
+        span {
+          font-size: 12px;
+          padding: 3px 8px;
+        }
+      }
+
+      .btn-complete {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+
+      > div {
+        input[type="number"] {
+          width: 60px;
+          padding: 6px;
+          font-size: 13px;
+        }
+
+        textarea {
+          padding: 8px;
+          font-size: 13px;
+          min-height: 70px;
+        }
+
+        button {
+          padding: 8px 16px;
+          font-size: 13px;
+        }
+      }
+    }
+
+    .btn-back {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+}

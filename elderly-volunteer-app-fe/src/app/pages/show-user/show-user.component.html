@@ -1,0 +1,53 @@
+<div class="show-container">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Form cập nhật thông tin user -->
+  <div class="profile-container">
+    <h2>Thông tin cá nhân</h2>
+
+    <div class="profile-card">
+      <img [src]="user?.avatar || 'Null'" alt="Avatar" class="avatar" />
+
+      <div class="info">
+        <p><strong>Họ và Tên:</strong> {{ user?.name }}</p>
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+        <p>
+          <strong>Vai trò:</strong>
+          <span *ngIf="user?.role === 'elderly'">Người lớn tuổi</span>
+          <span *ngIf="user?.role === 'volunteer'">Tình nguyện viên</span>
+        </p>
+        <p><strong>Số điện thoại:</strong> {{ user?.phone }}</p>
+        <p><strong>Địa chỉ:</strong> {{ user?.address }}</p>
+        <p><strong>Vị trí:</strong> {{ user?.location }}</p>
+        <p>
+          <strong>Sở thích:</strong>
+          {{
+            user?.preferences?.length
+              ? user.preferences.join(", ")
+              : "Chưa cập nhật"
+          }}
+        </p>
+        <p>
+          <strong>Kỹ năng:</strong>
+          {{ user?.skills?.length ? user.skills.join(", ") : "Chưa cập nhật" }}
+        </p>
+        <p>
+          <strong>Ngôn ngữ:</strong>
+          {{
+            user?.languages?.length
+              ? user.languages.join(", ")
+              : "Chưa cập nhật"
+          }}
+        </p>
+        <p>
+          <strong>Kinh nghiệm:</strong>
+          {{ user?.experience || "Chưa cập nhật" }}
+        </p>
+        <p><strong>Giới thiệu:</strong> {{ user?.bio || "Chưa cập nhật" }}</p>
+      </div>
+    </div>
+
+    <button class="btn-edit" routerLink="/join">✏️ Chỉnh sửa</button>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="appointment-list-container">
+    <h2>📅 Danh Sách Lịch Hẹn</h2>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <!-- 🟢 Bộ lọc ngày -->
+    <div class="filter">
+      <label for="filterDate">📅 Lọc theo ngày:</label>
+      <input type="date" id="filterDate" (change)="onDateChange($event)" />
+    </div>
+
+    <div *ngIf="appointments.length === 0 && !errorMessage" class="empty-state">
+      📭 Bạn chưa có lịch hẹn nào.
+    </div>
+
+    <div class="appointment-card" *ngFor="let appointment of appointments">
+      <p>
+        <strong>⏰ Ngày:</strong>
+        {{ appointment.date | date : "dd/MM/yyyy HH:mm" }}
+      </p>
+      <p>
+        <strong>👴 Người Cao Tuổi:</strong> {{ appointment.elderlyId.name }}
+      </p>
+      <p>
+        <strong>🤝 Tình Nguyện Viên:</strong> {{ appointment.volunteerId.name }}
+      </p>
+      <p><strong>📜 Ghi Chú:</strong> {{ appointment.notes || "Không có" }}</p>
+      <p>
+        <strong>📌 Trạng Thái:</strong>
+        <span [class]="appointment.status">{{
+          getStatusLabel(appointment.status)
+        }}</span>
+      </p>
+
+      <!-- 🟢 Nếu cuộc hẹn là 'pending', Volunteer có thể xác nhận -->
+      <button
+        *ngIf="appointment.status === 'pending' && isVolunteer()"
+        class="btn-confirm"
+        (click)="confirmAppointment(appointment._id)"
+      >
+        ✅ Xác nhận
+      </button>
+
+      <!-- 🔵 Nếu cuộc hẹn là 'confirmed', Elderly có thể hoàn thành -->
+      <button
+        *ngIf="appointment.status === 'confirmed' && isElderly()"
+        class="btn-complete"
+        (click)="completeAppointment(appointment._id)"
+      >
+        🎯 Hoàn thành
+      </button>
+
+      <!-- 🔴 Nếu cuộc hẹn là 'pending', hiển thị nút hủy -->
+      <button
+        *ngIf="appointment.status === 'pending'"
+        class="btn-cancel"
+        (click)="cancelAppointment(appointment._id)"
+      >
+        ❌ Hủy
+      </button>
+
+      <!-- ⭐ Nếu cuộc hẹn đã được hoàn thành, Elderly có thể đánh giá -->
+      <div
+        *ngIf="
+          isElderly() &&
+          appointment.status === 'completed' &&
+          !appointment.rating
+        "
+      >
+        <label>⭐ Đánh giá:</label>
+        <input
+          type="number"
+          min="1"
+          max="5"
+          [(ngModel)]="ratingData[appointment._id].rating"
+          placeholder="Nhập số sao (1-5)"
+        />
+        <textarea
+          [(ngModel)]="ratingData[appointment._id].comment"
+          placeholder="Viết nhận xét..."
+        ></textarea>
+        <button (click)="rateAppointment(appointment._id)">Gửi đánh giá</button>
+      </div>
+
+      <!-- 🏆 Nếu đã đánh giá, hiển thị đánh giá -->
+      <div *ngIf="appointment.rating">
+        <p><strong>📌 Đánh giá:</strong> {{ appointment.rating }} ⭐</p>
+        <p>
+          <strong>💬 Nhận xét:</strong>
+          {{ appointment.comment || "Không có nhận xét" }}
+        </p>
+      </div>
+    </div>
+
+    <button class="btn-back" (click)="goHome()">🏠 Quay lại</button>
+  </div>
+</div>

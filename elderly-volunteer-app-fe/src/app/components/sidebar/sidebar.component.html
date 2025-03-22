@@ -1,0 +1,53 @@
+<nav class="sidebar">
+  <h2>Kết nối chúng tôi</h2>
+  <ul>
+    <li>
+      <a routerLink="/home"> <i class="fas fa-home"></i> Trang Chủ </a>
+    </li>
+    <li>
+      <a routerLink="/appointments">
+        <i class="fas fa-calendar-alt"></i> Lịch Hẹn
+      </a>
+    </li>
+    <li *ngIf="isElderly()">
+      <a routerLink="/appointments/create">
+        <i class="fa-solid fa-clock"></i> Tạo Lịch Hẹn
+      </a>
+    </li>
+    <li></li>
+    <li>
+      <!-- Tin nhắn -->
+      <a routerLink="/select-volunteer" *ngIf="isElderly()">
+        <i class="fa-solid fa-message"></i> Tin nhắn
+      </a>
+      <!-- Chọn tình nguyện viên nếu là elderly -->
+      <div *ngIf="isElderly() && showVolunteerSelector">
+        <label for="volunteer">Chọn tình nguyện viên:</label>
+        <select id="volunteer" [(ngModel)]="selectedVolunteer">
+          <option *ngFor="let volunteer of volunteers" [value]="volunteer.id">
+            {{ volunteer.name }}
+          </option>
+        </select>
+        <button (click)="startChat()">Bắt đầu trò chuyện</button>
+      </div>
+    </li>
+    <li>
+      <a routerLink="/pages"> <i class="fas fa-history"></i> Lịch Sử </a>
+    </li>
+    <li>
+      <a routerLink="/charts">
+        <i class="fas fa-hand-holding-heart"></i> Hỗ Trợ
+      </a>
+    </li>
+    <li>
+      <a routerLink="/logout">
+        <i class="fa-solid fa-phone-volume"></i> Gọi ngay
+      </a>
+    </li>
+    <li>
+      <a routerLink="/logout">
+        <i class="fas fa-sign-out-alt"></i> Đăng Xuất
+      </a>
+    </li>
+  </ul>
+</nav>

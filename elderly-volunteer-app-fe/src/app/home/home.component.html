@@ -1,0 +1,100 @@
+<div class="home-container fade-in">
+  <div class="overlay"></div>
+
+  <!-- 🌟 Dashboard (Navbar) -->
+  <nav class="navbar">
+    <h2 class="logo">Kết Nối Người Lớn Tuổi</h2>
+
+    <div class="nav-links">
+      <a routerLink="/home">🏠 Trang Chủ</a>
+      <a routerLink="/appointments">📅 Lịch Hẹn</a>
+      <a routerLink="/messages">📅 Tin nhắn</a>
+      <a routerLink="/history">📜 Lịch Sử</a>
+      <a routerLink="/support">📞 Hỗ Trợ</a>
+    </div>
+
+    <!-- 🌟 Avatar & Đăng xuất -->
+    <div class="user-info" *ngIf="isLoggedIn">
+      <div class="avatar-section">
+        <div class="avatar-wrapper" (click)="toggleAvatarOptions()">
+          <img [src]="userAvatar" alt="Avatar" class="avatar" />
+        </div>
+        <a routerLink="/profile"
+          ><span class="username">{{ userName }}</span></a
+        >
+      </div>
+      <button (click)="logout()" class="logout-btn">🚪 Đăng xuất</button>
+    </div>
+  </nav>
+  <!-- 🌟 Popup thông báo -->
+  <div class="toast-container" *ngIf="errorMessage || successMessage">
+    <div
+      class="toast-message"
+      [ngClass]="{ error: errorMessage, success: successMessage }"
+    >
+      {{ errorMessage || successMessage }}
+    </div>
+  </div>
+
+  <!-- 🌟 Popup chọn ảnh -->
+  <div class="avatar-options" *ngIf="showAvatarOptions">
+    <label for="avatarUpload" class="option upload-option"
+      >📤 Tải ảnh lên</label
+    >
+    <input
+      type="file"
+      id="avatarUpload"
+      (change)="uploadAvatar($event)"
+      hidden
+    />
+
+    <button
+      class="option delete-option"
+      *ngIf="userAvatar !== 'assets/default-avatar.png'"
+      (click)="removeAvatar()"
+    >
+      ❌ Xóa ảnh đại diện
+    </button>
+  </div>
+
+  <!-- 🌟 Nội dung chính -->
+  <div class="content">
+    <h1>
+      Chào mừng đến với <span class="highlight">Kết nối Người Lớn Tuổi</span>
+    </h1>
+    <p class="subtitle">
+      Kết nối người cao tuổi với tình nguyện viên để hỗ trợ đời sống và sức
+      khỏe.
+    </p>
+    <div class="buttons-container" *ngIf="isLoggedIn">
+      <a routerLink="/join" class="btn btn-primary">Tham gia ngay</a>
+      <a routerLink="/about" class="btn btn-secondary">Tìm hiểu thêm</a>
+    </div>
+  </div>
+
+  <!-- 🌟 Slider Tin tức -->
+  <div class="news-slider">
+    <div
+      class="slider-wrapper"
+      *ngIf="slides.length > 0"
+      [ngStyle]="{ transform: 'translateX(' + -currentSlide * 100 + '%)' }"
+    >
+      <div class="news-slide" *ngFor="let slide of slides">
+        <div class="news-container">
+          <div class="news-item" *ngFor="let news of slide">
+            <a [href]="news.link" target="_blank">
+              <img [src]="news.image" alt="news image" />
+              <div class="event-caption">
+                <h3>{{ news.title }}</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌟 Nút điều hướng -->
+    <button class="prev" (click)="prevSlide()">❮</button>
+    <button class="next" (click)="nextSlide()">❯</button>
+  </div>
+</div>

@@ -1,0 +1,453 @@
+// Biến màu sắc
+$primary-color: #4caf50; // Xanh lá - biểu tượng thiện nguyện
+$secondary-color: #ff9800; // Cam - ấm áp, gần gũi
+$background-color: #f4f7f6; // Nền sáng nhẹ
+$text-color: #333; // Màu chữ tối
+$highlight-color: #e8f5e9; // Màu nổi bật nhẹ
+$shadow-color: rgba(0, 0, 0, 0.15);
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Container chính
+.home-container {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    $background-color,
+    lighten($primary-color, 40%)
+  );
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+
+  &.fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.7),
+      rgba($primary-color, 0.1)
+    );
+    z-index: 1;
+  }
+}
+
+// Navbar
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: white;
+  box-shadow: 0 4px 15px $shadow-color;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  .logo {
+    color: $primary-color;
+    font-size: 28px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: darken($primary-color, 10%);
+      transform: scale(1.05);
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+
+    a {
+      color: $text-color;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $highlight-color;
+        color: $primary-color;
+        box-shadow: 0 2px 8px rgba($primary-color, 0.2);
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .avatar-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .avatar-wrapper {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid $primary-color;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+          box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+        }
+
+        .avatar {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      a {
+        text-decoration: none;
+
+        .username {
+          color: $text-color;
+          font-size: 16px;
+          font-weight: 500;
+          padding: 5px 10px;
+          border-radius: 5px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            color: $primary-color;
+            background: $highlight-color;
+          }
+        }
+      }
+    }
+
+    .logout-btn {
+      background: $secondary-color;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: darken($secondary-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba($secondary-color, 0.3);
+      }
+    }
+  }
+}
+
+// Popup thông báo
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+
+  .toast-message {
+    padding: 12px 25px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    animation: slideIn 0.5s ease-out;
+    box-shadow: 0 4px 10px $shadow-color;
+
+    &.error {
+      background: #f44336;
+    }
+
+    &.success {
+      background: $primary-color;
+    }
+  }
+}
+
+// Popup chọn ảnh
+.avatar-options {
+  position: absolute;
+  top: 80px;
+  right: 40px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px $shadow-color;
+  z-index: 20;
+  animation: bounceIn 0.4s ease;
+
+  .option {
+    display: block;
+    padding: 10px 15px;
+    color: $text-color;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.upload-option:hover {
+      background: $highlight-color;
+      color: $primary-color;
+    }
+
+    &.delete-option {
+      color: #f44336;
+      &:hover {
+        background: #ffebee;
+      }
+    }
+  }
+}
+
+// Nội dung chính
+.content {
+  text-align: center;
+  padding: 100px 40px;
+  position: relative;
+  z-index: 2;
+
+  h1 {
+    font-size: 40px;
+    color: $text-color;
+    margin-bottom: 20px;
+
+    .highlight {
+      color: $primary-color;
+      font-weight: bold;
+      background: $highlight-color;
+      padding: 0 10px;
+      border-radius: 5px;
+    }
+  }
+
+  .subtitle {
+    font-size: 18px;
+    color: darken($text-color, 10%);
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    .btn {
+      padding: 12px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &.btn-primary {
+        background: $primary-color;
+        color: white;
+        &:hover {
+          background: darken($primary-color, 10%);
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+        }
+      }
+
+      &.btn-secondary {
+        background: $secondary-color;
+        color: white;
+        &:hover {
+          background: darken($secondary-color, 10%);
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba($secondary-color, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// Slider tin tức
+.news-slider {
+  position: relative;
+  padding: 40px 60px;
+  background: white;
+  box-shadow: 0 2px 10px $shadow-color;
+  z-index: 2;
+
+  .slider-wrapper {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+
+    .news-slide {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+
+      .news-container {
+        display: flex;
+        gap: 30px;
+        max-width: 1200px;
+
+        .news-item {
+          width: 300px;
+          background: white;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 4px 12px $shadow-color;
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba($primary-color, 0.2);
+          }
+
+          a {
+            text-decoration: none;
+            display: block;
+
+            img {
+              width: 100%;
+              height: 150px;
+              object-fit: cover;
+            }
+
+            .event-caption {
+              padding: 15px;
+              h3 {
+                font-size: 18px;
+                color: $text-color;
+                margin: 0;
+                transition: color 0.3s ease;
+              }
+            }
+
+            &:hover {
+              .event-caption h3 {
+                color: $primary-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.prev {
+      left: 20px;
+    }
+    &.next {
+      right: 20px;
+    }
+
+    &:hover {
+      background: $primary-color;
+      transform: translateY(-50%) scale(1.1);
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px 20px;
+
+    .nav-links {
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .user-info {
+      margin-top: 15px;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .content {
+    padding: 60px 20px;
+
+    h1 {
+      font-size: 32px;
+    }
+    .subtitle {
+      font-size: 16px;
+    }
+    .buttons-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+
+  .news-slider {
+    padding: 20px;
+
+    .news-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .news-item {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+}

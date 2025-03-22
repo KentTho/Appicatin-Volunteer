@@ -1,0 +1,274 @@
+// Biến màu sắc
+$primary-color: #4caf50; // Xanh lá - biểu tượng thiện nguyện
+$secondary-color: #ff9800; // Cam - ấm áp, gần gũi
+$background-color: #f4f7f6; // Nền sáng nhẹ
+$text-color: #333; // Màu chữ tối
+$highlight-color: #e8f5e9; // Màu nổi bật nhẹ
+$shadow-color: rgba(0, 0, 0, 0.15);
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Container chính
+.show-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    $background-color,
+    lighten($primary-color, 40%)
+  ); // Gradient nền nhẹ
+
+  // Sidebar (giả định)
+  app-sidebar {
+    flex: 0 0 250px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    animation: fadeInUp 0.8s ease-in;
+  }
+
+  // Profile Container
+  .profile-container {
+    flex: 1;
+    padding: 50px 20px;
+    max-width: 900px; // Tăng chiều rộng tối đa cho thoáng
+    margin: 0 auto;
+    position: relative;
+
+    h2 {
+      font-size: 32px;
+      font-family: "Roboto", sans-serif;
+      font-weight: 700;
+      color: $text-color;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      animation: fadeInUp 0.8s ease-in;
+      background: linear-gradient(90deg, $primary-color, $secondary-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; // Gradient cho tiêu đề
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, $primary-color, $secondary-color);
+        border-radius: 2px;
+      }
+    }
+
+    .profile-card {
+      display: flex;
+      align-items: flex-start;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 6px 25px rgba($shadow-color, 0.1);
+      animation: scaleIn 1s ease-in;
+      transition: all 0.3s ease;
+      border: 1px solid rgba($primary-color, 0.2); // Viền nhẹ
+
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba($primary-color, 0.25);
+        border-color: $primary-color;
+      }
+
+      .avatar {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid $primary-color;
+        margin-right: 40px;
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 15px rgba($primary-color, 0.2);
+
+        &:hover {
+          border-color: $secondary-color;
+          transform: rotate(5deg) scale(1.05);
+          box-shadow: 0 6px 20px rgba($secondary-color, 0.3);
+        }
+      }
+
+      .info {
+        flex: 1;
+
+        p {
+          font-size: 17px;
+          font-family: "Roboto", sans-serif;
+          color: $text-color;
+          margin: 12px 0;
+          line-height: 1.7;
+          padding: 8px 15px;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+          background: rgba($highlight-color, 0.5); // Nền nhạt cho mỗi dòng
+
+          strong {
+            color: darken($text-color, 15%);
+            font-weight: 600;
+            margin-right: 10px;
+            transition: color 0.3s ease;
+          }
+
+          &:hover {
+            background: $highlight-color;
+            color: $primary-color;
+            transform: translateX(5px);
+
+            strong {
+              color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+
+    .btn-edit {
+      display: block;
+      width: 220px;
+      margin: 40px auto 0;
+      padding: 14px 30px;
+      background: linear-gradient(
+        135deg,
+        $primary-color,
+        darken($primary-color, 15%)
+      );
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 17px;
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+      transition: all 0.4s ease;
+      animation: fadeInUp 1.2s ease-in;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+      }
+
+      &:hover {
+        background: linear-gradient(
+          135deg,
+          darken($primary-color, 5%),
+          darken($primary-color, 25%)
+        );
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba($primary-color, 0.5);
+        animation: pulse 1.5s infinite;
+
+        &::before {
+          width: 300px;
+          height: 300px;
+        }
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .show-container {
+    flex-direction: column;
+
+    app-sidebar {
+      flex: none;
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .profile-container {
+      padding: 30px 15px;
+
+      h2 {
+        font-size: 26px;
+        margin-bottom: 30px;
+
+        &::after {
+          width: 50px;
+        }
+      }
+
+      .profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+
+        .avatar {
+          width: 140px;
+          height: 140px;
+          margin: 0 0 25px 0;
+        }
+
+        .info {
+          p {
+            font-size: 15px;
+            padding: 6px 10px;
+          }
+        }
+      }
+
+      .btn-edit {
+        width: 100%;
+        max-width: 200px;
+        padding: 12px 20px;
+      }
+    }
+  }
+}

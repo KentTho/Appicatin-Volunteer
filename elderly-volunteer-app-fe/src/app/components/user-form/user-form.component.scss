@@ -1,0 +1,189 @@
+// Biến màu sắc
+$error-color: #f44336;
+$success-color: #4caf50;
+$primary-color: #4caf50;
+$secondary-color: #ff9800;
+$text-color: #333;
+$shadow-color: rgba(0, 0, 0, 0.15);
+
+.user-form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  h2 {
+    text-align: center;
+    color: $text-color;
+  }
+
+  .popup-container {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    z-index: 1000;
+    pointer-events: none;
+
+    .popup-message {
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.5s ease forwards;
+      pointer-events: auto;
+
+      &.success-message {
+        background: linear-gradient(
+          135deg,
+          $success-color,
+          darken($success-color, 10%)
+        );
+      }
+
+      &.error-message {
+        background: linear-gradient(
+          135deg,
+          $error-color,
+          darken($error-color, 10%)
+        );
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      label {
+        font-size: 16px;
+        font-weight: 500;
+        color: $text-color;
+      }
+
+      input,
+      textarea {
+        padding: 12px 15px;
+        font-size: 16px;
+        border: 2px solid lighten($text-color, 50%);
+        border-radius: 8px;
+        outline: none;
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: $primary-color;
+          box-shadow: 0 0 5px rgba($primary-color, 0.3);
+        }
+      }
+
+      .error-text {
+        color: $error-color;
+        font-size: 14px;
+        margin-top: 4px;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
+
+      .btn {
+        flex: 1;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        &.btn-primary {
+          background: linear-gradient(
+            135deg,
+            $primary-color,
+            darken($primary-color, 10%)
+          );
+          color: white;
+
+          &:hover {
+            background: linear-gradient(
+              135deg,
+              darken($primary-color, 5%),
+              darken($primary-color, 20%)
+            );
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba($primary-color, 0.3);
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+
+        &.btn-secondary {
+          background: linear-gradient(
+            135deg,
+            lighten($secondary-color, 10%),
+            $secondary-color
+          );
+          color: white;
+
+          &:hover {
+            background: linear-gradient(
+              135deg,
+              $secondary-color,
+              darken($secondary-color, 15%)
+            );
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba($secondary-color, 0.3);
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animation hiệu ứng
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

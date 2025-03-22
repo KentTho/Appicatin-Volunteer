@@ -1,0 +1,18 @@
+<h2>Chọn tình nguyện viên để bắt đầu cuộc trò chuyện</h2>
+
+<!-- Nếu chưa chọn tình nguyện viên -->
+<div *ngIf="!volunteerSelected">
+  <label for="volunteer">Chọn tình nguyện viên:</label>
+  <select id="volunteer" [(ngModel)]="selectedVolunteer">
+    <option *ngFor="let volunteer of volunteers" [value]="volunteer.id">
+      {{ volunteer.name }}
+    </option>
+  </select>
+
+  <button mat-button (click)="startChat()">Bắt đầu trò chuyện</button>
+</div>
+
+<!-- Nếu đã chọn tình nguyện viên -->
+<div *ngIf="volunteerSelected">
+  <p>Đang trò chuyện với tình nguyện viên...</p>
+</div>
