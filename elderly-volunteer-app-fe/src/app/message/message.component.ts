@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MessageService} from '../message.service';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-message',
-  imports: [],
+  imports: [
+    FormsModule,
+    NgForOf,
+    NgIf
+  ],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss',
 })
 export class MessageComponent implements OnInit {
-  volunteers = []; // Danh sách tình nguyện viên
+  volunteers: any[] = []; // Danh sách tình nguyện viên
   selectedVolunteer: string | null = null; // ID tình nguyện viên được chọn
   volunteerSelected = false; // Cờ để xác định tình nguyện viên đã được chọn
 
@@ -26,7 +33,7 @@ export class MessageComponent implements OnInit {
 
   startChat() {
     if (this.selectedVolunteer) {
-      this.messageService.startChatWithVolunteer(this.selectedVolunteer);
+      this.messageService.startChatWithVolunteer(Number(this.selectedVolunteer));
       this.volunteerSelected = true;
     }
   }

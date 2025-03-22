@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getMessages(conversationId: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/messages/${conversationId}`);
@@ -19,4 +20,20 @@ export class MessageService {
       message,
     });
   }
+
+  // Lấy danh sách tình nguyện viên
+  getVolunteers(): Observable<Volunteer[]> {
+    return this.http.get<Volunteer[]>(`${environment.apiUrl}/volunteers`);
+  }
+
+  // Bắt đầu trò chuyện với tình nguyện viên
+  startChatWithVolunteer(volunteerId: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/chat/start`, {volunteerId});
+  }
+}
+// Định nghĩa interface Volunteer
+  export interface Volunteer {
+  id: number;
+  name: string;
+  // Các thuộc tính khác nếu cần
 }

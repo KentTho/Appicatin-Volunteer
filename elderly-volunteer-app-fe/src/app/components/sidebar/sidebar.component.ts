@@ -1,10 +1,12 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {MessageService} from '../../message.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, NgIf],
+  imports: [RouterLink, NgIf, FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })

@@ -6,6 +6,7 @@ import { JoinComponent } from './pages/join/join.component';
 import { ShowUserComponent } from './pages/show-user/show-user.component';
 import { AppointmentCreateComponent } from './pages/appointment-create/appointment-create.component';
 import { AppointmentListComponent } from './pages/appointment-list/appointment-list.component';
+import {MessageComponent} from './message/message.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect từ "/" về "/home"
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'join', component: JoinComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ShowUserComponent },
+  { path: 'message', component: MessageComponent},
   { path: 'appointments/create', component: AppointmentCreateComponent },
   { path: 'appointments', component: AppointmentListComponent },
 
